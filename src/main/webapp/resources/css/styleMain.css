@@ -1,0 +1,26 @@
+html{
+    /*background-color: #4adbdb;*/
+    background-image: url("#{resource['img/kek2.jpg']}");
+    /*background-color: #06090E;*/
+    /*background-color: aliceblue;*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#header{
+    text-align: center;
+    color: #ce7b34;
+    text-shadow: 1px 1px 1px #d50d0d;
+}
+#diagramm{
+    margin-left: 400px;
+    margin-top: 100px;
+    /*text-align: center;*/
+}
+#mainButtons{
+    margin-top: 50px;
+}

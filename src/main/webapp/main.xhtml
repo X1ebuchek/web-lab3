@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Huawei
+  Date: 27.11.2022
+  Time: 14:55
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<h:head>
+    <title>Lab3</title>
+    <link type="text/css" rel="stylesheet"
+          href="/testweb3/faces/javax.faces.resource/styleMain.css?ln=css"/>
+</h:head>
+
+<h:body style="background-color: aqua">
+    <h:form prependId="false">
+        <h:inputText id="bigTZ" style="visibility: hidden" value="#{timeBean.timeZoneOffset}" styleClass="customHide">
+            <f:ajax listener="#{timeBean.timeZoneChanged}" />
+        </h:inputText>
+    </h:form>
+    <div>
+        <h:form><h:commandButton action="gotoStart" value="Домой"/></h:form>
+
+        <div id="diagramm" style="margin-left: 300px">
+            <canvas id="MyCanvas" width="300" height="300"></canvas>
+        </div>
+        <h:form id="inputForm" style="margin-left: 1000px; margin-top: -300px">
+            <ace:sliderEntry
+                    onSlideEnd="document.getElementById('inputForm:textX').innerText = 'X is ' + document.getElementById('inputForm:sliderX_hidden').value + ' now'"
+                    id="sliderX" min="-5" max="5" stepPercent="10" showLabels="true" value="#{MainBean.point.x}"/>
+            <h:inputHidden id="inputX" value="#{MainBean.point.x}"/>
+            <br/>
+            <h:outputText id="textX" value="X is 0 now" style="margin-left: 50px"/>
+
+            <br/>
+            <br/>
+
+            <h:outputLabel value="Y (от -3 до 5) "/>
+            <br/>
+            <h:inputText id="inputY" value="#{MainBean.point.y}"/>
+<!--            onchange="setY(value)"-->
+<!--            <br/>-->
+<!--            <br/>-->
+<!--            <h:outputText id="textY" value="Y is 0 now" style="margin-left: 50px"/>-->
+
+            <br/>
+            <br/>
+
+            <h:commandButton id="setR1" action="#{MainBean.point.setR(1)}" value="1" onclick="setR(1); redraw(1)"/> <h:outputText value=" "/>
+            <h:commandButton id="setR2" action="#{MainBean.point.setR(2)}" value="2" onclick="setR(2); redraw(2)"/> <h:outputText value=" "/>
+            <h:commandButton id="setR3" action="#{MainBean.point.setR(3)}" value="3" onclick="setR(3); redraw(3)"/> <h:outputText value=" "/>
+            <h:commandButton id="setR4" action="#{MainBean.point.setR(4)}" value="4" onclick="setR(4); redraw(4)"/> <h:outputText value=" "/>
+            <h:commandButton id="setR5" action="#{MainBean.point.setR(5)}" value="5" onclick="setR(5); redraw(5)"/>
+            <br/>
+            <br/>
+            <h:inputHidden id="inputR" value="5"/>
+            <h:outputText id="textR" value="R is 1 now" style="margin-left: 50px"/>
+
+            <br/>
+            <br/>
+
+            <script type="application/javascript">
+                function setY(number) {
+                    document.getElementById("inputForm:textY").innerText = "Y is " + number + " now";
+                }
+
+                function setR(number) {
+                    document.getElementById("inputForm:textR").innerText = "R is " + number + " now";
+                    document.getElementById("inputForm:inputR").value = number;
+                }
+            </script>
+
+            <div id="mainButtons">
+                <h:commandButton style="margin: auto" id="submitButton"  type="submit" value="Submit"
+                                 process="@all"  action="#{MainBean.addToList()}" update="mainTable"
+                />
+<!--                                 update="inputForm"-->
+
+<!--                <h:commandButton style="margin-left: 40px" id="clearButton" type="submit" value="Clear"-->
+<!--                                 process="@all" update="inputForm"-->
+<!--                />-->
+            </div>
+        </h:form>
+        <br/>
+        <h:outputText id="invalidValue" value=" "/>
+        <br/>
+        <br/>
+
+        <div id="table" style="margin-top: 50px">
+            <h:form id="formTable">
+                <ace:dataTable emptyMessage="" id="mainTable" var="elem" value="#{MainBean.points}">
+                    <ace:column headerText="X">
+                        <h:outputText value="#{elem.x}"/>
+                    </ace:column>
+                    <ace:column headerText="Y">
+                        <h:outputText value="#{elem.y}"/>
+                    </ace:column>
+                    <ace:column headerText="R">
+                        <h:outputText value="#{elem.r}"/>
+                    </ace:column>
+                    <ace:column headerText="HIT">
+                        <h:outputText value="#{elem.hit}"/>
+                    </ace:column>
+                    <ace:column headerText="DATE">
+                        <h:outputText value="#{timeBean.getZonedTime(elem)}"/>
+                    </ace:column>
+                    <ace:column headerText="script time (ns)">
+                        <h:outputText value="#{elem.scriptTime}"/>
+                    </ace:column>
+                </ace:dataTable>
+
+            </h:form>
+            <!--            <h:dataTable emptyMessage="" lazy="true"  widgetVar="mainTable" editable="true" id="mainTable" var="elem" value="#{MainBean.points}">-->
+            <!--                <h:column  headerText="X">-->
+            <!--                    <h:outputText value="#{elem.x}"></h:outputText>-->
+            <!--                </h:column>-->
+            <!--                <h:column headerText="Y">-->
+            <!--                    <h:outputText  value="#{elem.y}"></h:outputText>-->
+            <!--                </h:column>-->
+            <!--                <h:column headerText="R">-->
+            <!--                    <h:outputText value="#{elem.r}"></h:outputText>-->
+            <!--                </h:column>-->
+            <!--                <h:column headerText="HIT">-->
+            <!--                    <h:outputText value="#{elem.hit}"></h:outputText>-->
+            <!--                </h:column>-->
+            <!--                <h:column headerText="DATE">-->
+            <!--                    <h:outputText value="#{elem.currTime}"></h:outputText>-->
+            <!--                </h:column>-->
+            <!--                <h:column headerText="script time (ns)">-->
+            <!--                    <h:outputText value="#{elem.scriptTime}"></h:outputText>-->
+            <!--                </h:column>-->
+            <!--            </h:dataTable>-->
+        </div>
+
+    </div>
+
+</h:body>
+<script defer="defer" src="diagramm.js" type="application/javascript">redraw(5);</script>
+<script type="application/javascript" src="validation.js"></script>
+<h:outputScript library="js" name="timeZone.js"></h:outputScript>
+
+</html>

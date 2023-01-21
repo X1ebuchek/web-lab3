@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Huawei
+  Date: 27.11.2022
+  Time: 14:55
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+>
+
+
+<f:view>
+   <h:head>
+      <title>My fucking lab</title>
+<!--      <h:outputStylesheet library="css" name="style.css"/>-->
+   </h:head>
+   <h:body onload="parseTable();redrawCanvas(2)">
+
+
+      <div id="canvasDiv" style="height: 300px;
+        width: 300px;
+        margin: auto;
+        border: solid 1px #50c878;">
+
+         <canvas id="MyCanvas" width="300" height="300"></canvas>
+         <script src="diagramm.js" type="application/javascript"></script>
+      </div >
+      <h:form id="mainForm" >
+         <h:panelGrid columns="1" style="margin-bottom: 10px;margin: auto;margin-top: 40px">
+            <h:outputText style="color: white" value="x is #{MainBean.valueX} now " id="xOutput"/>
+            <p:inputNumber type="hidden" id="txt2" value="#{MainBean.valueX}"/>
+            <p:slider for="txt2" maxValue="5"  minValue="-5" step="1" display="xOutput" style="width: 200px" displayTemplate="x is {value} now "/>
+            <br/>
+            <p:inputText id="yInput" maxlength="8" value="#{MainBean.valueY}" placeholder="y between -3 and 5"/>
+            <br/>
+            <h:outputText style="color: white" value="r is #{MainBean.valueR} now " id="rOutput"/>
+            <p:inputNumber type="hidden" value="#{MainBean.valueR}" id="rInput"/>
+            <p:slider for="rInput" maxValue="5" minValue="2" step="0.25" display="rOutput" style="width: 200px" displayTemplate="r is {value} now "/>
+         </h:panelGrid>
+         <div id="mainInputs">
+            <p>
+               <p:commandButton style="margin: auto" id="submitButtonID" type="submit" action="#{addBean.addToTable()}" value="Submit"
+                                process="@all"  update="mainTable"
+               />
+
+
+               <p:commandButton style="margin-left: 30px" value="Clear" id="clearButton" update="mainTable" action="#{addBean.clearArr}"
+                                oncomplete="resetAll()" process="@this"></p:commandButton>
+            </p>
+            <p>
+               <p:commandButton  style="margin-left: 60px" value="Back" id="backButton" action="gotoIndex"></p:commandButton>
+            </p>
+         </div>
+         <p:dataTable  emptyMessage="" lazy="true"  widgetVar="mainTable" editable="true" id="mainTable" var="elem" value="#{addBean.reversedArr}">
+            <p:column  headerText="X">
+               <h:outputText value="#{elem.x}"></h:outputText>
+            </p:column>
+            <p:column headerText="Y">
+               <h:outputText  value="#{elem.y}"></h:outputText>
+            </p:column>
+            <p:column headerText="R">
+               <h:outputText value="#{elem.r}"></h:outputText>
+            </p:column>
+            <p:column headerText="HIT">
+               <h:outputText value="#{elem.hit ? 'YES' : 'NO'}"></h:outputText>
+            </p:column>
+            <p:column headerText="DATE">
+               <h:outputText value="#{timeBean.getZonedTime(elem)}"></h:outputText>
+            </p:column>
+            <p:column headerText="script time (ns)">
+               <h:outputText value="#{elem.scriptTime}"></h:outputText>
+            </p:column>
+         </p:dataTable>
+      </h:form>
+
+      <!--        <h:outputScript  library="js" name="canvas.js"></h:outputScript>-->
+   </h:body>
+</f:view>
+</html>

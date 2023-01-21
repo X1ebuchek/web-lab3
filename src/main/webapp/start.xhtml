@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+
+<h:head>
+    <title>Lab3</title>
+    <h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+
+<h:body>
+    <div id="header">
+        <h1>Вагаев Артем P32312</h1>
+        <h2>Вариант 3231287</h2>
+    </div>
+    <div id="clock">
+        <script type="application/javascript">
+            window.onload = function(){
+                let now = new Date();
+                let clock = document.getElementById("clock");
+                clock.innerHTML = now.toLocaleTimeString();
+                window.setInterval(function(){
+                    let now = new Date();
+                    let clock = document.getElementById("clock");
+                    clock.innerHTML = now.toLocaleTimeString();
+                }, 10000);
+            };
+        </script>
+    </div>
+    <div id="commandButton">
+        <h:form>
+            <h:commandButton style="border: none;
+                                    outline: none;
+                                    display: inline-block;
+                                    text-align: center;
+                                    text-decoration: none;
+                                    cursor: pointer;
+                                    font-size: 16px;
+                                    padding: 12px 16px;
+                                    border-radius: 20px;
+                                    color: #000000;
+                                    background: #ce7b34;
+                                    margin-top: 50px;"
+                             value="Перейти на гланую страницу" action="gotoMain"/>
+        </h:form>
+    </div>
+</h:body>
+
+</html>
