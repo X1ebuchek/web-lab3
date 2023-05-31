@@ -185,18 +185,18 @@ function clickEvent(event){
     console.log("x = " + x);
     console.log("y = " + y);
 
-    if (x < -5 || x > 5){
-        //alert("invalid x parameter")
-        document.getElementById("invalidValue").innerText = "invalid x parameter"
-        console.log("invalid x parameter")
-        return;
-    }
-    if (y < -3 || y > 5) {
-        //alert("invalid y parameter")
-        document.getElementById("invalidValue").innerText = "invalid y parameter"
-        console.log("invalid y parameter")
-        return;
-    }
+    // if (x < -5 || x > 5){
+    //     //alert("invalid x parameter")
+    //     document.getElementById("invalidValue").innerText = "invalid x parameter"
+    //     console.log("invalid x parameter")
+    //     return;
+    // }
+    // if (y < -3 || y > 5) {
+    //     //alert("invalid y parameter")
+    //     document.getElementById("invalidValue").innerText = "invalid y parameter"
+    //     console.log("invalid y parameter")
+    //     return;
+    // }
     document.getElementById("invalidValue").innerText = " "
 
     document.getElementById("inputForm:inputY").value = y;
